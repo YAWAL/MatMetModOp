@@ -40,7 +40,7 @@ func PrintAlternatives(alts []Lab1.Alternative) {
 func GetLoads(input []int) []Lab2.Load {
 	var loads []Lab2.Load
 	for num, inp := range input {
-		load := Lab2.Load{Num:num+1, Load:inp}
+		load := Lab2.Load{Num:num+1, Weight:inp}
 		loads = append(loads, load)
 	}
 	return loads

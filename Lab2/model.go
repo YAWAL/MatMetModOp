@@ -4,13 +4,16 @@ var ContainerPayload int
 
 const max_load int = 100
 
+
+
 type Load struct {
-	Num int
-	Load int
+	Num    int
+	Weight int
 }
 
 type Container struct {
-	Num int
-	LoadNum int
+	Num     int
+	Loading int
+	Loads   []Load
 }
 
