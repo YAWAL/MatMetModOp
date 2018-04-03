@@ -1,16 +1,8 @@
-package main
+package Lab1
 
 import (
-	"math"
-	"strconv"
 	"log"
 )
-
-type Alternative struct {
-	Name        string
-	Q1, Q2      int
-	IsDominated bool
-}
 
 func Pareto(alts []Alternative) []Alternative {
 	var pareto []Alternative
@@ -54,24 +46,33 @@ func Pareto(alts []Alternative) []Alternative {
 
 func ParetoAlt(alts []Alternative) []Alternative {
 	var pareto = alts
+	var paretoDom []Alternative
 	log.Printf("Paretos before 1st for: %v", pareto)
 
 	log.Println("START PROCEDURE")
 
-	for i := 0; i < len(alts)-1; i++ {
+	for i := 0; i < len(pareto); i++ {
 
-		//for j := 1; j < len(pareto)-1; j++ {
+		for j := 1; j < len(pareto)-1; j++ {
 
-			if pareto[i].Q1 <= pareto[i+1].Q1 && pareto[i].Q2 <= pareto[i+1].Q2 {
-				pareto[i+1].IsDominated = true
-				pareto := append(pareto[:i], pareto[i+1:]...)
+			if pareto[i].Q1 <= pareto[j].Q1 && pareto[i].Q2 <= pareto[j].Q2 {
+				pareto[i].IsDominated = false
+				//pareto := append(pareto[:i], pareto[i+1:]...)
 				log.Printf("Iteration %v, Paretos %v ", i, pareto)
 
 			}
 
-		//}
-		//log.Println("Paretos in for: ", pareto)
+		}
 	}
+
+	for _, pd := range pareto {
+		if pd.IsDominated == true {
+			paretoDom = append(paretoDom, pd)
+		}
+
+	}
+
+	log.Println("paretoDom: ", paretoDom)
 
 	log.Println("Paretos after for: ", pareto)
 
@@ -80,24 +81,3 @@ func ParetoAlt(alts []Alternative) []Alternative {
 	return pareto
 }
 
-func GetAlternatives(row []int) []Alternative {
-	var alts []Alternative
-	for ind, rw := range row {
-		var alt Alternative
-		name := "A" + strconv.Itoa(ind+1)
-		alt.Name = name
-		Q2 := math.Mod(float64(rw), 10)
-		Q1 := (float64(rw) - Q2) / 10
-		alt.Q1 = int(Q1)
-		alt.Q2 = int(Q2)
-		alt.IsDominated = false
-		alts = append(alts, alt)
-	}
-	return alts
-}
-
-func PrintAlternatives(alts []Alternative) {
-	for _, alt := range alts {
-		log.Printf("Alternateve %v, Criterias: Q1=%v , Q2=%v , IsDominated: %v", alt.Name, alt.Q1, alt.Q2, alt.IsDominated)
-	}
-}
