@@ -6,8 +6,8 @@ import (
 	"strconv"
 	"github.com/YAWAL/MatMetModOp/Lab1"
 	"github.com/YAWAL/MatMetModOp/Lab2"
+	"fmt"
 )
-
 
 func GetAlternatives(stringRow []string) []Lab1.Alternative {
 	var intRow []int
@@ -30,6 +30,7 @@ func GetAlternatives(stringRow []string) []Lab1.Alternative {
 	return alts
 }
 
+// PrintAlternatives prints information about alternatives
 func PrintAlternatives(alts []Lab1.Alternative) {
 	for _, alt := range alts {
 		log.Printf("Alternative %v, Criterias: Q1=%v , Q2=%v , IsDominated: %v", alt.Name, alt.Q1, alt.Q2, alt.IsDominated)
@@ -40,8 +41,15 @@ func PrintAlternatives(alts []Lab1.Alternative) {
 func GetLoads(input []int) []Lab2.Load {
 	var loads []Lab2.Load
 	for num, inp := range input {
-		load := Lab2.Load{Num:num+1, Weight:inp}
+		load := Lab2.Load{Num: num + 1, Weight: inp}
 		loads = append(loads, load)
 	}
 	return loads
+}
+
+// PrintContainersInfo prints information about containers
+func PrintContainersInfo(containers []Lab2.Container) {
+	for _, cont := range containers {
+		fmt.Printf("Container# %v: Loading=%v , Loads=%v\n", cont.Num, cont.Loading, cont.Loads)
+	}
 }

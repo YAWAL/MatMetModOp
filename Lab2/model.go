@@ -2,7 +2,7 @@ package Lab2
 
 var ContainerPayload int
 
-const max_load int = 100
+const Max_load int = 100
 
 
 
